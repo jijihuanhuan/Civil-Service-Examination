@@ -1,5 +1,5 @@
 /* ===== 公考倒计时 · Service Worker（离线缓存） ===== */
-const CACHE = "gkdjs-v1";
+const CACHE = "gkdjs-v2";
 const ASSETS = [
   "./",
   "./index.html",
