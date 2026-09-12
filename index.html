@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>公考倒计时 · 国考/省考/选调</title>
+<meta name="description" content="国考、省考、各省选调的报名与考试倒计时，支持离线使用，可添加到 iPhone / iPad 主屏幕。">
+<meta name="theme-color" content="#1C2B3A">
+<!-- iOS PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="公考倒计时">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="brand">
+    <span class="brand-seal" aria-hidden="true">考</span>
+    <div class="brand-text">
+      <h1>公考倒计时</h1>
+      <p class="brand-sub">国考 · 省考 · 选调</p>
+    </div>
+  </div>
+  <button id="notifyBtn" class="icon-btn" type="button" aria-label="开启考试提醒" title="考试提醒">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+  </button>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab active" data-filter="all" type="button">全部</button>
+  <button class="tab" data-filter="guokao" type="button">国考</button>
+  <button class="tab" data-filter="shengkao" type="button">省考</button>
+  <button class="tab" data-filter="diaoxuan" type="button">选调</button>
+</nav>
+
+<main class="list" id="list" aria-live="polite"></main>
+
+<section class="empty" id="empty" hidden>
+  <div class="empty-seal" aria-hidden="true">空</div>
+  <p>当前分类下还没有考试</p>
+  <p class="empty-sub">点击右下角按钮添加一个考试节点</p>
+</section>
+
+<div class="notice" id="notice" hidden></div>
+
+<button class="fab" id="addBtn" type="button" aria-label="添加考试">
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+</button>
+
+<!-- 添加 / 编辑弹窗 -->
+<div class="modal-backdrop" id="modal" hidden>
+  <form class="modal" id="form" novalidate>
+    <h2 id="formTitle">添加考试</h2>
+
+    <label class="field">
+      <span>考试名称</span>
+      <input type="text" id="fName" required maxlength="40" placeholder="如：2027国考 · 公共科目笔试">
+    </label>
+
+    <label class="field">
+      <span>分类</span>
+      <select id="fCategory">
+        <option value="guokao">国考</option>
+        <option value="shengkao">省考</option>
+        <option value="diaoxuan">选调</option>
+      </select>
+    </label>
+
+    <div class="field-grid">
+      <label class="field">
+        <span>报名开始</span>
+        <input type="datetime-local" id="fEnrollStart">
+      </label>
+      <label class="field">
+        <span>报名截止</span>
+        <input type="datetime-local" id="fEnrollEnd">
+      </label>
+    </div>
+
+    <label class="field">
+      <span>考试时间</span>
+      <input type="datetime-local" id="fExamAt">
+    </label>
+
+    <label class="field">
+      <span>备注 / 来源</span>
+      <input type="text" id="fNote" maxlength="120" placeholder="如：预计时间，以官方公告为准">
+    </label>
+
+    <div class="switch-row">
+      <span>是否已由官方公布</span>
+      <label class="switch">
+        <input type="checkbox" id="fAnnounced">
+        <span class="slider" aria-hidden="true"></span>
+      </label>
+    </div>
+    <p class="form-hint">已公布 = 官方公告确定的时间；未勾选 = 预计时间，倒计时仅供参考。</p>
+
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" id="formCancel">取消</button>
+      <button type="submit" class="btn btn-primary" id="formSave">保存</button>
+    </div>
+  </form>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
