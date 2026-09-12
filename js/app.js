@@ -79,6 +79,8 @@
     if (s && n < s) return { key: "soon", label: "未开始", s, e, pct: 0 };
     if (e && n <= e) {
       const pct = s ? Math.min(100, Math.max(0, ((n - s) / (e - s)) * 100)) : 100;
+      /* 公告未发布、日期为参考去年时，窗口期显示"预计窗口"，避免误认为真实报名中 */
+      if (!ex.announced) return { key: "ref", label: "预计窗口", s, e, pct };
       return { key: "open", label: "报名中", s, e, pct };
     }
     return { key: "closed", label: "已截止", s, e, pct: 100 };
@@ -191,6 +193,9 @@
       if (es.key === "open" && es.e) {
         leftEl.textContent = "剩 " + niceLeft(es.e);
         leftEl.classList.add("warn");
+      } else if (es.key === "ref" && es.e) {
+        leftEl.textContent = "参考窗口剩 " + niceLeft(es.e);
+        leftEl.classList.add("warn");
       } else if (es.key === "soon" && es.s) {
         leftEl.textContent = "还有 " + niceLeft(es.s) + " 开始";
         leftEl.classList.add("ok");
@@ -205,6 +210,7 @@
       bar.style.width = Math.round(es.pct) + "%";
       if (es.key === "closed") bar.classList.add("gray");
       if (es.key === "soon") bar.classList.add("blue");
+      if (es.key === "ref") bar.classList.add("gold");
       prog.appendChild(bar);
       wrap.append(line, prog);
       body.appendChild(wrap);
@@ -295,6 +301,7 @@
       if (!ex) return;
       const es = enrollState(ex);
       if (es && es.key === "open" && es.e) el2.textContent = "剩 " + niceLeft(es.e);
+      else if (es && es.key === "ref" && es.e) el2.textContent = "参考窗口剩 " + niceLeft(es.e);
       else if (es && es.key === "soon" && es.s) el2.textContent = "还有 " + niceLeft(es.s) + " 开始";
     });
   }

@@ -188,6 +188,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .status-seal.soon { color: var(--blue); background: var(--blue-soft); }
 .status-seal.open { color: #FFF6E8; background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.18); }
+.status-seal.ref { color: #8a5a00; background: #FFF3D6; border-color: #E8B33C; }
 .status-seal.closed { color: var(--gray); background: var(--gray-soft); }
 .status-seal.finished { color: var(--ink-faint); background: var(--gray-soft); }
 
@@ -261,6 +262,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .progress .bar.blue { background: var(--blue); }
 .progress .bar.gray { background: var(--gray); }
+.progress .bar.gold { background: #E8B33C; }
 
 /* ===== 卡片底部 ===== */
 .card-foot {
